@@ -1,0 +1,12 @@
+
+
+.container {
+  padding-top: 100px;
+}
+
+.col-xs-3{
+  height: 150px;
+  background-color: white;
+  border: solid red 1px;
+
+}
