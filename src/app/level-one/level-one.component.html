@@ -1,14 +1,17 @@
 <div class="container">
   <h1>Welcome to level 1</h1><button class="btn btn-danger btn-lg">Start Round</button>
+  <h3>Points {{points}}</h3>
   <hr>
   <div class="row">
-    <div class="col-xs-3" *ngFor="let item of level1One; let i = index">
-    <img src="{{item.url}}" alt="" class="img-responsive">
+    <div class="col-xs-3" *ngFor="let item of level1One; let i = index" (click)="onShow1(i, item)">
+    <img src="{{item.url}}" alt="" class="img-responsive" *ngIf="i == show1">
     </div>
   </div>
+  <br />
+  <br />
   <div class="row">
-    <div class="col-xs-3" *ngFor="let item of level1One; let i = index">
-    <img src="{{item.url}}" alt="" class="img-responsive">
+    <div class="col-xs-3" *ngFor="let item of level1Two; let i = index" (click)="onShow2(i, item)">
+    <img src="{{item.url}}" alt="" class="img-responsive" *ngIf="i == show2">
     </div>
   </div>
 </div>
