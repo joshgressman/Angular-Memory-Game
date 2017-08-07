@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing-module';
 
 import { HomeComponent } from './home/home.component';
 import { LevelOneComponent } from './level-one/level-one.component';
+import { GameService } from './services/game.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { LevelOneComponent } from './level-one/level-one.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

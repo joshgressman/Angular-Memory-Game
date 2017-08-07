@@ -1,4 +1,7 @@
-import { Component} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { TimerObservable } from "rxjs/observable/TimerObservable";
+import { GameService } from '../services/game.service'
 
 @Component({
   selector: 'app-level-one',
@@ -6,47 +9,44 @@ import { Component} from '@angular/core';
   styleUrls: ['./level-one.component.css']
 })
 
-export class LevelOneComponent {
-   level1One = [{url: '../../assets/images/game/blackpanther.jpeg', points: 2.5, value: 'Black Panther'},
-                {url: '../../assets/images/game/blackwidow.jpeg', points: 2.5, value: 'Black Widow'},
-                {url: '../../assets/images/game/deadpool.jpeg', points: 2.5, value: 'Deadpool'},
-                {url: '../../assets/images/game/hulk.jpeg', points: 2.5, value: 'Hulk'}];
+export class LevelOneComponent implements OnInit {
+    points = 0;
+    gameCards = [];
+    time = 10;
 
-    level1Two = [{url: '../../assets/images/game/deadpool.jpeg', points: 2.5, value: 'Deadpool'},
-                 {url: '../../assets/images/game/hulk.jpeg', points: 2.5, value: 'Hulk'},
-                 {url: '../../assets/images/game/blackpanther.jpeg', points: 2.5, value: 'Black Panther'},
-                 {url: '../../assets/images/game/blackwidow.jpeg', points: 2.5, value: 'Black Widow'}
-                ];
+    //timer properties
+    private tick = 10;
+    private subscription: Subscription;
 
+  constructor(private gameService: GameService) {
 
-     show1: number;
-     show2: number;
-     points = 0;
-     value1: null;
-     value2: null;
-
-  constructor() { }
-
-  onShow1(i: number, item){
-    this.show1 = i;
-    this.value1 = item.value;
-    if(this.value1 === this.value2){
-      this.points += 5;
-    }
   }
 
-  onShow2(i: number, item){
-    this.show2 = i;
-    this.value2 = item.value
-    if(this.value1 === this.value2){
-           this.points += 5;
-    }
+  onStart(){
+    //timer for level one > end time pop up
+    // populate game array with random matches
+    // can populate based on value or id
+    // if match points accumulate
+    this.onTimer();
   }
 
+ onTimer(){
+   let timer = TimerObservable.create(200, 1000);
+   this.subscription = timer.subscribe(t => {
+     this.tick --;
+     if(this.tick <= 0){
+       this.subscription.unsubscribe();
+     }
+   });
+ }
 
+ ngOnInit(){
+   this.gameCards = this.gameService.gameData;
+ }
 
-  //Going to need a method that generates random numbers, pulls the random numbers based on level and randomy places
-  //them on the game board. maybe the *ngfor is not the best route though rather
-  // a method that randomy generates values/
+ngOnDestroy(){
+  this.subscription.unsubscribe();
+}
+
 
 }
