@@ -15,8 +15,8 @@ export class LevelOneComponent implements OnInit {
     time = 10;
 
     //timer properties
-    private tick = 10;
-    private subscription: Subscription;
+     tick = 10;
+     subscription: Subscription;
 
   constructor(private gameService: GameService) {
 
